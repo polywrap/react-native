@@ -44,7 +44,7 @@
     "android"
   ],
   "repository": "https://github.com/polywrap/polywrap-react-native",
-  "author": "Kris Bitney <kris@polywrap.io> (https://github.com/polywrap)",
+  "author": "Polywrap <kris@polywrap.io> (https://github.com/polywrap)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/polywrap/polywrap-react-native/issues"
