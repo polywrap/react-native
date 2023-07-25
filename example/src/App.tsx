@@ -12,7 +12,14 @@ export default function App() {
       uri: Uri.from("ipfs/QmThRxFfr7Hj9Mq6WmcGXjkRrgqMG3oD93SLX27tinQWy5"),
       method: "keccak_256",
       args: { message: "Hello World!" },
-    }).then((hash) => setResult(hash.value))
+    })
+    .then((result) => {
+      if (result.ok) {
+        setResult(result.value)
+      } else {
+        console.log(result.error)
+      }
+    })
     .catch((err) => console.log(err));
   }, []);
 
