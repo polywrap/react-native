@@ -1,6 +1,7 @@
 package io.polywrap.reactnative
 
 import com.facebook.react.bridge.Arguments
+import com.facebook.react.bridge.LifecycleEventListener
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
@@ -11,7 +12,8 @@ import io.polywrap.client.PolywrapClient as AndroidPolywrapClient
 import io.polywrap.configBuilder.polywrapClient
 import io.polywrap.core.resolution.Uri
 
-class PolywrapClient(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
+class PolywrapClient(reactContext: ReactApplicationContext)
+  : ReactContextBaseJavaModule(reactContext), LifecycleEventListener {
 
   private var client: AndroidPolywrapClient = polywrapClient { addDefaults() }
 
@@ -37,15 +39,6 @@ class PolywrapClient(reactContext: ReactApplicationContext) : ReactContextBaseJa
     }
   }
 
-  @ReactMethod
-  fun rebuild() {
-    client.close()
-    client = polywrapClient { addDefaults() }
-  }
-
-  @ReactMethod
-  fun close() = client.close()
-
   private fun readableArrayToByteArray(readableArray: ReadableArray): ByteArray {
     val size = readableArray.size()
     val byteArray = ByteArray(size)
@@ -63,6 +56,13 @@ class PolywrapClient(reactContext: ReactApplicationContext) : ReactContextBaseJa
     return array
   }
 
+  // LifeCycleEventListener
+  init { reactContext.addLifecycleEventListener(this) }
+  override fun onHostResume() {}
+  override fun onHostPause() {}
+  override fun onHostDestroy() = client.close()
+
+  // React Module
   override fun getName(): String = NAME
 
   companion object {

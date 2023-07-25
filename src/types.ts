@@ -5,8 +5,4 @@ export interface NativePolywrapClient {
     args: Array<number> | undefined,
     env: Array<number> | undefined
   ): Promise<Array<number>>;
-
-  rebuild(): void;
-
-  close(): void;
 }
