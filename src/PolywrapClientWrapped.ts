@@ -24,6 +24,12 @@ class PolywrapClientWrapped {
     }
   }
 
+  public rebuild() {
+    if (this.client.rebuild !== undefined && typeof this.client.rebuild === "function") {
+      this.client.rebuild();
+    }
+  }
+
   public close() {
     if (this.client.close !== undefined && typeof this.client.close === "function") {
       this.client.close();
