@@ -1,13 +1,19 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from '@polywrap/react-native';
+import { PolywrapClient, Uri } from "@polywrap/react-native";
 
 export default function App() {
+
   const [result, setResult] = React.useState<number | undefined>();
 
   React.useEffect(() => {
-    multiply(3, 7).then(setResult);
+    PolywrapClient.invoke({
+      uri: Uri.from("ipfs/QmThRxFfr7Hj9Mq6WmcGXjkRrgqMG3oD93SLX27tinQWy5"),
+      method: "keccak_256",
+      args: { message: "Hello World!" },
+    }).then((hash) => setResult(hash.value))
+    .catch((err) => console.log(err));
   }, []);
 
   return (

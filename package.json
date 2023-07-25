@@ -53,6 +53,11 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
+  "dependencies": {
+    "@polywrap/core-js": "0.12.0-pre.1",
+    "@polywrap/msgpack-js": "0.12.0-pre.1",
+    "@polywrap/result": "0.12.0-pre.1"
+  },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.0.2",
     "@evilmartians/lefthook": "^1.2.2",

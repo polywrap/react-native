@@ -5,10 +5,13 @@ buildscript {
   repositories {
     google()
     mavenCentral()
+    maven {
+      url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+    }
   }
 
   dependencies {
-    classpath "com.android.tools.build:gradle:7.2.1"
+    classpath "com.android.tools.build:gradle:7.2.2"
     // noinspection DifferentKotlinGradleVersion
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
   }
@@ -51,7 +54,7 @@ def supportsNamespace() {
 
 android {
   if (supportsNamespace()) {
-    namespace "com.polywrap.reactnative"
+    namespace "io.polywrap.reactnative"
   } else {
     sourceSets {
       main {
@@ -78,8 +81,8 @@ android {
   }
 
   compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
   }
 
 }
@@ -87,11 +90,16 @@ android {
 repositories {
   mavenCentral()
   google()
+  maven {
+    url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+  }
 }
 
 def kotlin_version = getExtOrDefault("kotlinVersion")
 
 dependencies {
+  implementation "io.polywrap:polywrap-client-android:0.10.0-SNAPSHOT"
+  implementation "org.jetbrains.kotlinx:kotlinx-serialization-core:1.5.1"
   // For < 0.71, this will be from the local maven repo
   // For > 0.71, this will be replaced by `com.facebook.react:react-android:$version` by react gradle plugin
   //noinspection GradleDynamicVersion
@@ -102,7 +110,7 @@ dependencies {
 if (isNewArchitectureEnabled()) {
   react {
     jsRootDir = file("../src/")
-    libraryName = "ReactNative"
-    codegenJavaPackageName = "com.polywrap.reactnative"
+    libraryName = "PolywrapReactNative"
+    codegenJavaPackageName = "io.polywrap.reactnative"
   }
 }

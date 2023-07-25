@@ -1,4 +1,8 @@
 import { NativeModules, Platform } from 'react-native';
+import type { NativePolywrapClient } from './types';
+import { PolywrapClientWrapped } from './PolywrapClientWrapped';
+
+export { Uri } from "@polywrap/core-js";
 
 const LINKING_ERROR =
   `The package '@polywrap/react-native' doesn't seem to be linked. Make sure: \n\n` +
@@ -6,8 +10,8 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo Go\n';
 
-const ReactNative = NativeModules.ReactNative
-  ? NativeModules.ReactNative
+const nativePolywrapClient = NativeModules.PolywrapClient
+  ? NativeModules.PolywrapClient
   : new Proxy(
       {},
       {
@@ -16,7 +20,8 @@ const ReactNative = NativeModules.ReactNative
         },
       }
     );
+const polywrapClientWrapped = new PolywrapClientWrapped(nativePolywrapClient as NativePolywrapClient);
 
-export function multiply(a: number, b: number): Promise<number> {
-  return ReactNative.multiply(a, b);
-}
+export {
+  polywrapClientWrapped as PolywrapClient
+};
