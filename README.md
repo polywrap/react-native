@@ -57,3 +57,4 @@ import { PolywrapClient, Uri, PolywrapClientConfigBuilder } from '@polywrap/reac
 React Native does not yet support JavaScript's WebAssembly API, which is required to run the JavaScript PolywrapClient. The React Native client is a feature-limited client that wraps the Kotlin and Swift Polywrap clients. If you're writing a React Native app and need a fully-featured JavaScript client, let us know and we'll prioritize it.
 
 Alternatively, if you're writing a native Android or iOS app, you can use the Kotlin or Swift PolywrapClients directly to unlock the full suite of Polywrap features.
+
