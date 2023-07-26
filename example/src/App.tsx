@@ -1,7 +1,11 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import { PolywrapClient, Uri, PolywrapClientConfigBuilder } from '@polywrap/react-native';
+import {
+  PolywrapClient,
+  Uri,
+  PolywrapClientConfigBuilder,
+} from '@polywrap/react-native';
 
 export default function App() {
   const [result, setResult] = React.useState<string>('');

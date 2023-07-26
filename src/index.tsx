@@ -5,8 +5,8 @@ import { PolywrapClientWrapped } from './PolywrapClientWrapped';
 export type { InvokeOptions } from '@polywrap/core-js';
 export { Uri } from '@polywrap/core-js';
 export type { Result } from '@polywrap/result';
-export type { ClientConfigBuilder } from "@polywrap/client-config-builder-js";
-export { PolywrapClientConfigBuilder } from "@polywrap/client-config-builder-js";
+export type { ClientConfigBuilder } from '@polywrap/client-config-builder-js';
+export { PolywrapClientConfigBuilder } from '@polywrap/client-config-builder-js';
 
 const LINKING_ERROR =
   `The package '@polywrap/react-native' doesn't seem to be linked. Make sure: \n\n` +
