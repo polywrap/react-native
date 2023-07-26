@@ -2,7 +2,9 @@ import { NativeModules, Platform } from 'react-native';
 import type { NativePolywrapClient } from './types';
 import { PolywrapClientWrapped } from './PolywrapClientWrapped';
 
+export type { InvokeOptions } from "@polywrap/core-js";
 export { Uri } from "@polywrap/core-js";
+export type { Result } from "@polywrap/result";
 
 const LINKING_ERROR =
   `The package '@polywrap/react-native' doesn't seem to be linked. Make sure: \n\n` +

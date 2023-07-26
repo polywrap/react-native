@@ -7,6 +7,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReadableArray
+import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.WritableArray
 import io.polywrap.client.PolywrapClient as AndroidPolywrapClient
 import io.polywrap.configBuilder.polywrapClient
@@ -15,17 +16,63 @@ import io.polywrap.core.resolution.Uri
 class PolywrapClient(reactContext: ReactApplicationContext)
   : ReactContextBaseJavaModule(reactContext), LifecycleEventListener {
 
-  private var client: AndroidPolywrapClient = polywrapClient { addDefaults() }
+  private var client: AndroidPolywrapClient? = null
+
+  @ReactMethod
+  fun configureAndBuild(clientConfig: ReadableMap, promise: Promise) {
+    val envs = clientConfig.getMap("envs")
+    val interfaces = clientConfig.getMap("interfaces")
+    val redirects = clientConfig.getMap("redirects")
+    try {
+      client = polywrapClient {
+        addDefaults()
+        envs?.let {
+          val envsIterator = it.keySetIterator()
+          while (envsIterator.hasNextKey()) {
+            val envName = envsIterator.nextKey()
+            val env = it.getMap(envName) ?: continue
+            addEnv(envName to env.toHashMap())
+          }
+        }
+        interfaces?.let {
+          val interfacesIterator = it.keySetIterator()
+          while (interfacesIterator.hasNextKey()) {
+            val interfaceName = interfacesIterator.nextKey()
+            val implementationsArray = it.getArray(interfaceName) ?: continue
+            val implementationsList = mutableListOf<String>()
+            for (i in 0 until implementationsArray.size()) {
+              implementationsList.add(implementationsArray.getString(i))
+            }
+            addInterfaceImplementations(interfaceName, implementationsList)
+          }
+        }
+        redirects?.let {
+          val redirectsIterator = it.keySetIterator()
+          while (redirectsIterator.hasNextKey()) {
+            val from = redirectsIterator.nextKey()
+            val to = it.getString(from) ?: continue
+            setRedirect(from to to)
+          }
+        }
+      }
+      promise.resolve(true)
+    } catch (e: Exception) {
+      promise.reject(e)
+    }
+  }
 
   @ReactMethod
   fun invokeRaw(
     uri: String,
     method: String,
-    args: ReadableArray? = null,
-    env: ReadableArray? = null,
+    args: ReadableArray?,
+    env: ReadableArray?,
     promise: Promise
   ) {
-    val result: Result<ByteArray> = client.invokeRaw(
+    if (client == null) {
+      client = polywrapClient { addDefaults() }
+    }
+    val result: Result<ByteArray> = client!!.invokeRaw(
       uri = Uri(uri),
       method = method,
       args = args?.let { readableArrayToByteArray(it) },
@@ -60,7 +107,7 @@ class PolywrapClient(reactContext: ReactApplicationContext)
   init { reactContext.addLifecycleEventListener(this) }
   override fun onHostResume() {}
   override fun onHostPause() {}
-  override fun onHostDestroy() = client.close()
+  override fun onHostDestroy() = client?.close() ?: Unit
 
   // React Module
   override fun getName(): String = NAME
