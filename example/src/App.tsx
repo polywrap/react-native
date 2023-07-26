@@ -12,6 +12,7 @@ export default function App() {
 
   React.useEffect(() => {
     const testClient = async () => {
+      // Configure envs, interfaces, and URI redirects
       const builder = new PolywrapClientConfigBuilder()
         .addEnvs({
           'ens/wraps.eth:async-ipfs-uri-resolver-ext@1.0.1': {
@@ -35,6 +36,7 @@ export default function App() {
         return;
       }
 
+      // Invoke a Wrap!
       const invokeResult = await PolywrapClient.invoke<string>({
         uri: Uri.from('ipfs/QmThRxFfr7Hj9Mq6WmcGXjkRrgqMG3oD93SLX27tinQWy5'),
         method: 'keccak_256',
