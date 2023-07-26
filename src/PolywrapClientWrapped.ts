@@ -17,7 +17,7 @@ class PolywrapClientWrapped {
         args === undefined ? undefined : [...msgpackEncode(args)],
         env === undefined ? undefined : [...msgpackEncode(env)]
       );
-      const decoded = msgpackDecode(bytes) as TData;
+      const decoded = msgpackDecode(new Uint8Array(bytes)) as TData;
       return ResultOk(decoded);
     } catch (e) {
       return ResultErr(e as Error)
