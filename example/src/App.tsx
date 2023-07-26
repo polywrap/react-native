@@ -11,13 +11,13 @@ export default function App() {
   React.useEffect(() => {
     const testClient = async () => {
       const builder = new PolywrapClientConfigBuilder()
-//         .addEnvs({
-//           "ens/wraps.eth:async-ipfs-uri-resolver-ext@1.0.1": {
-//             provider: "https://ipfs.wrappers.io",
-//             fallbackProviders: "https://ipfs.io",
-//             retries: { tryResolveUri: 2, getFile: 2 },
-//           }
-//         })
+        .addEnvs({
+          "ens/wraps.eth:async-ipfs-uri-resolver-ext@1.0.1": {
+            provider: "https://ipfs.wrappers.io",
+            fallbackProviders: ["https://ipfs.io"],
+            retries: { tryResolveUri: 2, getFile: 2 },
+          }
+        })
         .addInterfaceImplementations(
           "ens/wraps.eth:ipfs-http-client@1.0.0",
           ["ens/wraps.eth:ipfs-http-client@1.0.0"]

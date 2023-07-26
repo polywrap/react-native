@@ -11,6 +11,9 @@ import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.WritableArray
 import io.polywrap.client.PolywrapClient as AndroidPolywrapClient
 import io.polywrap.configBuilder.polywrapClient
+import io.polywrap.core.WrapEnv
+import io.polywrap.core.msgpack.EnvSerializer
+import io.polywrap.core.msgpack.msgPackDecode
 import io.polywrap.core.resolution.Uri
 
 class PolywrapClient(reactContext: ReactApplicationContext)
@@ -30,8 +33,9 @@ class PolywrapClient(reactContext: ReactApplicationContext)
           val envsIterator = it.keySetIterator()
           while (envsIterator.hasNextKey()) {
             val envName = envsIterator.nextKey()
-            val env = it.getMap(envName) ?: continue
-            addEnv(envName to env.toHashMap())
+            val envBytes = it.getArray(envName) ?: continue
+            val env = msgPackDecode(EnvSerializer, readableArrayToByteArray(envBytes)).getOrThrow()
+            addEnv(envName to env)
           }
         }
         interfaces?.let {

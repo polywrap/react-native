@@ -1,5 +1,6 @@
 export interface NativeClientConfig {
-    envs: Record<string, Record<string, unknown>> | undefined;
+    // envs are byte arrays so we can handle arbitrary data
+    envs: Record<string, Array<number>> | undefined;
     interfaces: Record<string, Array<string>> | undefined;
     redirects: Record<string, string> | undefined;
 }

@@ -21,7 +21,9 @@ class PolywrapClientWrapped {
     }
 
     const nativeConfig: NativeClientConfig = {
-      envs: envs,
+      envs: Object.fromEntries(
+        Object.entries(envs).map(([key, value]) => [key, [...msgpackEncode(value)]])
+      ),
       interfaces: Object.fromEntries(
         Object.entries(interfaces).map(([key, value]) => [key, Array.from(value)])
       ),
