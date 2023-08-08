@@ -1,4 +1,6 @@
 PODS:
+  - AsyncObjects (2.1.0):
+    - OrderedCollections (~> 1.0.0)
   - boost (1.76.0)
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
@@ -74,10 +76,18 @@ PODS:
     - hermes-engine/Pre-built (= 0.72.3)
   - hermes-engine/Pre-built (0.72.3)
   - libevent (2.1.12)
+  - MessagePacker (0.4.7)
   - OpenSSL-Universal (1.1.1100)
+  - OrderedCollections (1.0.4)
   - polywrap-react-native (0.1.0):
+    - PolywrapClient (= 0.0.7)
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
+  - PolywrapClient (0.0.7):
+    - AsyncObjects (~> 2.1.0)
+    - MessagePacker (~> 0.4.7)
+    - PolywrapClientNative (~> 0.0.5)
+  - PolywrapClientNative (0.0.5)
   - RCT-Folly (2021.07.22.00):
     - boost
     - DoubleConversion
@@ -561,6 +571,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AsyncObjects
     - CocoaAsyncSocket
     - Flipper
     - Flipper-Boost-iOSX
@@ -572,7 +583,11 @@ SPEC REPOS:
     - FlipperKit
     - fmt
     - libevent
+    - MessagePacker
     - OpenSSL-Universal
+    - OrderedCollections
+    - PolywrapClient
+    - PolywrapClientNative
     - SocketRocket
     - YogaKit
 
@@ -660,6 +675,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  AsyncObjects: 37d04187100fd9cd545a6570a8ad727c5a3c5090
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
@@ -677,8 +693,12 @@ SPEC CHECKSUMS:
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   hermes-engine: 10fbd3f62405c41ea07e71973ea61e1878d07322
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
+  MessagePacker: ab2fe250e86ea7aedd1a9ee47a37083edd41fd02
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
-  polywrap-react-native: 0dcf2da3f35858967a251f9a04c300a7f85b56b2
+  OrderedCollections: c754ce5f9e42cf22b73afd73582317347903ab6d
+  polywrap-react-native: 5c007a8fd4419bfc1fee7ccbddb42b3d0f961304
+  PolywrapClient: f1c843780ed739578393651940e23b2e1e288088
+  PolywrapClientNative: a1d5df8a4248379095e8abd408b7a4cb9f3fe80c
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: a2faf4bad4e438ca37b2040cb8f7799baa065c18
   RCTTypeSafety: cb09f3e4747b6d18331a15eb05271de7441ca0b3
@@ -715,6 +735,6 @@ SPEC CHECKSUMS:
   Yoga: 8796b55dba14d7004f980b54bcc9833ee45b28ce
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 44dbf88ce682963cb4adb558aac392e9a3d692de
+PODFILE CHECKSUM: 435dd72f65e6f07eddd7f0321c0649abcfaf98bd
 
 COCOAPODS: 1.12.1
